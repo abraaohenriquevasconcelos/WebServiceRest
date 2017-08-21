@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="js/jquery.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#enviar").click(function(){
+			if($("#nome").val() == ""){
+				window.alert("Preencha o campo Nome !")
+				return;
+			}
+
+			var nome = $("#nome").val();
+			var sexo = $("#sexo").val();
+			//var string = '{"nome": "'+nome+'", "sexo": "'+sexo+'"}';
+			
+			//var JSONObject = {"nome":nome, "sexo":sexo};
+			//var jsonData = JSON.parse(JSONObject);
+			//console.log(jsonData); 
+			
+			
+			$.ajax({
+				type: "POST",
+				url: "rest/pessoa/cadastrar",
+				//dataType : "json",
+				//contentType: "application/json; charset=utf-8",
+				contentType: "application/json",
+				data : JSON.stringify({"nome":nome, "sexo":sexo}),
+				success: function(data){
+					alert(data);
+				}
+			});
+			
+
+							
+		});
+	});
+</script>
+
+</head>
+<body>
+	<h1 style="text-align: center;">Cadastrar uma Pessoa no Banco de Dados</h1>
+	<form action="/action_page.php" style="text-align: center;position: absolute;width:100%;margin-top: 50px;">
+		Nome:<br>
+	  	<input type="text" name="nome" id="nome">
+	  	<br>
+	  	Sexo:<br>
+	  	<select id="sexo" name="sexo">
+		  <option value="M">Feminino</option>
+		  <option value="F">Masculino</option>
+		</select>
+	  	<br><br>
+	  	<input type="button" value="Enviar" id="enviar">
+	</form> 
+
+</body>
+</html>
